@@ -60,35 +60,8 @@ def bbox(detections):
     for i in range(len(detections)):
       bbox.append(detections[i]['box_points'])
     return bbox
-def roi(img, detections):
-    bbox = []
-    roi = []
-    for i in range(len(detections)):
-      bbox.append(detections[i]['box_points'])
-    for i in bbox:
-      for (x,y,w,h) in [i]:
-        cropped_img = img[y:y+h, x:x+w]
-        for (h, w, d) in [cropped_img.shape]:
-          if h > 100 and w > 100:
-            roi.append(cropped_img)
-          elif h > 100 and w < 100:
-            cropped_img = cv2.copyMakeBorder(cropped_img, 0, 0, (150 - w), (150 - w), cv2.BORDER_CONSTANT, value = (0,0,0))
-            cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-            roi.append(cropped_img)
-          elif h < 100 and w > 100:
-            cropped_img = cv2.copyMakeBorder(cropped_img, (150 - h), (150 - h), 0, 0, cv2.BORDER_CONSTANT, value = (0,0,0))
-            cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-            roi.append(cropped_img)
-          else:
-            cropped_img = cv2.copyMakeBorder(cropped_img, (150 - h), (150 - h), (150 - w), (150 - w), cv2.BORDER_CONSTANT, value = (0,0,0))
-            cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
-            roi.append(cropped_img)
-    return roi
-	
-def resized_roi(img = img, roi = roi):
-    resized_roi = []
-    for cropped_img in roi:
-      resized_cropped_img = cv2.resize(cropped_img, (100,100))
-      resized_cropped_img = cv2.rectangle(resized_cropped_img, (0,0), (100,100), (0,0,0), 3)
-      resized_roi.append(resized_cropped_img)
-    return resized_roi
+def number_of_detections(img, detections):
+    if len(detections) == 1:
+      return '1 object detected'
+    else:
+      return '{} objects detected'.format(len(detections))
