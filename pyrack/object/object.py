@@ -60,6 +60,7 @@ def bbox(detections):
     for i in range(len(detections)):
       bbox.append(detections[i]['box_points'])
     return bbox
+
 def number_of_detections(img, detections):
     if len(detections) == 1:
       return '1 object detected'
