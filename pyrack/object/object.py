@@ -78,3 +78,22 @@ def detected_objects_shape(img = img, detected_objects = detected_objects, roi =
       df['Object'] = detected_objects
       df['Shape'] = roi_shape
       return df
+	  
+def display_all_objects(img = img, detected_objects = detected_objects, roi = roi):
+    if len(detected_objects) == 0:
+      return '0 objects detected'
+    elif len(detected_objects) == 1:
+      a = plt.imshow(roi[0])
+      a = plt.suptitle('The only {} detected in the image'.format(detected_objects[0]))
+      a = plt.axis('off')
+      a = plt.show()
+      return a
+    else:
+      fig, ax = plt.subplots(1, len(detected_objects))
+      for i in range(len(detected_objects)):
+        a = ax[i].imshow(roi[i])
+        a = ax[i].set_title(detected_objects[i])
+        a = ax[i].axis('off')
+      a = fig.suptitle('All objects detected in the image')
+      a = plt.show()
+      return a
