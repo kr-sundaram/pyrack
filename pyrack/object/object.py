@@ -126,3 +126,15 @@ def number_of_detections(img, detections):
       return '1 object detected'
     else:
       return '{} objects detected'.format(len(detections))
+
+def detected_objects_shape(img = img, detected_objects = detected_objects, roi = roi):
+    if len(detected_objects) == 0:
+      return '0 objects detected'
+    else:
+      roi_shape = []
+      for i in roi:
+        roi_shape.append(i.shape)
+      df = pd.DataFrame(columns = ['Object', 'Shape'])
+      df['Object'] = detected_objects
+      df['Shape'] = roi_shape
+      return df
