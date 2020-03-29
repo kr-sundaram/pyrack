@@ -60,6 +60,7 @@ def bbox(detections):
     for i in range(len(detections)):
       bbox.append(detections[i]['box_points'])
     return bbox
+  
 def roi(img, detections):
     bbox = []
     roi = []
@@ -119,3 +120,9 @@ def count_per_unique_item(img = img, detected_objects = detected_objects):
       a = plt.suptitle('Count of each unique object detected', size = 15)
       a = plt.show()
       return a
+    
+def number_of_detections(img, detections):
+    if len(detections) == 1:
+      return '1 object detected'
+    else:
+      return '{} objects detected'.format(len(detections))
