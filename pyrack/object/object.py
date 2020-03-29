@@ -43,3 +43,63 @@ def detections(img):
     detector.loadModel()
     detections = detector.detectObjectsFromImage(image_path, os.path.join(os.getcwd(), 'detections.jpg'))
     return detections
+
+def detected_objects(img, detections):
+    """Here we make a list of 
+    all the objects detected in the image"""
+    detected_objects = []
+    for i in range(len(detections)):
+      detected_objects.append(detections[i]['name'])
+    return detected_objects
+    
+def bbox(detections):
+    """Here we extract the bounding
+    boxes of each detected object"""
+    #global bbox
+    bbox = []
+    for i in range(len(detections)):
+      bbox.append(detections[i]['box_points'])
+    return bbox
+def roi(img, detections):
+    bbox = []
+    roi = []
+    for i in range(len(detections)):
+      bbox.append(detections[i]['box_points'])
+    for i in bbox:
+      for (x,y,w,h) in [i]:
+        cropped_img = img[y:y+h, x:x+w]
+        for (h, w, d) in [cropped_img.shape]:
+          if h > 100 and w > 100:
+            roi.append(cropped_img)
+          elif h > 100 and w < 100:
+            cropped_img = cv2.copyMakeBorder(cropped_img, 0, 0, (150 - w), (150 - w), cv2.BORDER_CONSTANT, value = (0,0,0))
+            cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+            roi.append(cropped_img)
+          elif h < 100 and w > 100:
+            cropped_img = cv2.copyMakeBorder(cropped_img, (150 - h), (150 - h), 0, 0, cv2.BORDER_CONSTANT, value = (0,0,0))
+            cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+            roi.append(cropped_img)
+          else:
+            cropped_img = cv2.copyMakeBorder(cropped_img, (150 - h), (150 - h), (150 - w), (150 - w), cv2.BORDER_CONSTANT, value = (0,0,0))
+            cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
+            roi.append(cropped_img)
+    return roi
+	
+def resized_roi(img = img, roi = roi):
+    resized_roi = []
+    for cropped_img in roi:
+      resized_cropped_img = cv2.resize(cropped_img, (100,100))
+      resized_cropped_img = cv2.rectangle(resized_cropped_img, (0,0), (100,100), (0,0,0), 3)
+      resized_roi.append(resized_cropped_img)
+    return resized_roi
+
+def unique_items_detected(img, detected_objects):
+    df = pd.DataFrame(columns = ['detected_objects'])
+    df['detected_objects'] = detected_objects
+    unique_items_detected = df['detected_objects'].unique()
+    if len(unique_items_detected) == 0:
+      return '0 objects detected'
+    elif len(unique_items_detected) == 1:
+      return '{} unique object detected - {}'.format(len(unique_items_detected), (unique_items_detected))
+    else:
+      return '{} unique objects detected - {}'.format(len(unique_items_detected), (unique_items_detected))
