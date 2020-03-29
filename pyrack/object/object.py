@@ -92,3 +92,14 @@ def resized_roi(img = img, roi = roi):
       resized_cropped_img = cv2.rectangle(resized_cropped_img, (0,0), (100,100), (0,0,0), 3)
       resized_roi.append(resized_cropped_img)
     return resized_roi
+
+def unique_items_detected(img, detected_objects):
+    df = pd.DataFrame(columns = ['detected_objects'])
+    df['detected_objects'] = detected_objects
+    unique_items_detected = df['detected_objects'].unique()
+    if len(unique_items_detected) == 0:
+      return '0 objects detected'
+    elif len(unique_items_detected) == 1:
+      return '{} unique object detected - {}'.format(len(unique_items_detected), (unique_items_detected))
+    else:
+      return '{} unique objects detected - {}'.format(len(unique_items_detected), (unique_items_detected))
