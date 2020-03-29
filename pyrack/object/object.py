@@ -1,5 +1,11 @@
-import cv2
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+import os
+import cv2
+from collections import Counter
+import imageai
+from imageai.Detection import ObjectDetection
 
 def img(image):
     """Here we read the image as numpy arrays
@@ -17,3 +23,23 @@ def display_original_image(img):
     a = plt.suptitle('Original Image')
     a = plt.axis('off')
     return a
+
+def model_weights(weights):
+    """Here, you need to set the path
+    where the pre-trained model
+    weights are stored"""
+    global model_path
+    model_path = weights
+    return model_path
+
+def detections(img):
+    """With the help of the pre-trained
+    model weights, we detect all objects
+    available in the image using imageai's
+    object detection class"""
+    detector = ObjectDetection()
+    detector.setModelTypeAsRetinaNet()
+    detector.setModelPath(model_path)
+    detector.loadModel()
+    detections = detector.detectObjectsFromImage(image_path, os.path.join(os.getcwd(), 'detections.jpg'))
+    return detections
