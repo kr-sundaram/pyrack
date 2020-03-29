@@ -43,3 +43,20 @@ def detections(img):
     detector.loadModel()
     detections = detector.detectObjectsFromImage(image_path, os.path.join(os.getcwd(), 'detections.jpg'))
     return detections
+
+def detected_objects(img, detections):
+    """Here we make a list of 
+    all the objects detected in the image"""
+    detected_objects = []
+    for i in range(len(detections)):
+      detected_objects.append(detections[i]['name'])
+    return detected_objects
+    
+def bbox(detections):
+    """Here we extract the bounding
+    boxes of each detected object"""
+    #global bbox
+    bbox = []
+    for i in range(len(detections)):
+      bbox.append(detections[i]['box_points'])
+    return bbox
