@@ -84,3 +84,11 @@ def roi(img, detections):
             cropped_img = cv2.putText(cropped_img, 'Too small to be displayed', (30,30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1)
             roi.append(cropped_img)
     return roi
+	
+def resized_roi(img = img, roi = roi):
+    resized_roi = []
+    for cropped_img in roi:
+      resized_cropped_img = cv2.resize(cropped_img, (100,100))
+      resized_cropped_img = cv2.rectangle(resized_cropped_img, (0,0), (100,100), (0,0,0), 3)
+      resized_roi.append(resized_cropped_img)
+    return resized_roi
