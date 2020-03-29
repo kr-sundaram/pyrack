@@ -103,3 +103,19 @@ def unique_items_detected(img, detected_objects):
       return '{} unique object detected - {}'.format(len(unique_items_detected), (unique_items_detected))
     else:
       return '{} unique objects detected - {}'.format(len(unique_items_detected), (unique_items_detected))
+
+def count_per_unique_item(img = img, detected_objects = detected_objects):
+    if len(detected_objects) == 0:
+      return '0 objects detected'
+    elif len(detected_objects) == 1:
+      return 'Only 1 instance of {} detected'.format(detected_objects[0])
+    else:
+      df = pd.DataFrame(columns = ['Unique Item'])
+      df['Unique Item'] = detected_objects
+      df['Count'] = df['Unique Item'].map(df['Unique Item'].value_counts(dropna = False))
+      df = df.drop_duplicates(subset = ['Unique Item', 'Count'], keep = 'first')
+      df = df.reset_index(drop = True)
+      a = df.plot.barh(x = 'Unique Item', y = 'Count')
+      a = plt.suptitle('Count of each unique object detected', size = 15)
+      a = plt.show()
+      return a
