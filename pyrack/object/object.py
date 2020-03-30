@@ -1,3 +1,4 @@
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -63,9 +64,9 @@ def bbox(detections):
     return bbox
 
 def roi(img, detections):
-    """Here we extract the rigions of interest 
-    across each detected object based on the
-    bounding boxes returned above"""
+  """Here we extract the rigions of interest 
+  across each detected object based on the
+  bounding boxes returned above"""
     bbox = []
     roi = []
     for i in range(len(detections)):
@@ -94,7 +95,7 @@ def roi(img, detections):
     return roi
 
 def resized_roi(img = img, roi = roi):
-    """Here we resize the roi to 100*100"""
+  """Here we resize the roi to 100*100"""
     resized_roi = []
     for cropped_img in roi:
       resized_cropped_img = cv2.resize(cropped_img, (100,100))
@@ -104,14 +105,14 @@ def resized_roi(img = img, roi = roi):
 
 
 def number_of_detections(img, detections):
-    """Here we find the number of objects detected"""
+  """Here we find the number of objects detected"""
     if len(detections) == 1:
       return '1 object detected'
     else:
       return '{} objects detected'.format(len(detections))
 
 def unique_items_detected(img, detected_objects):
-    """Here we list all the unique objects detected"""
+  """Here we list all the unique objects detected"""
     df = pd.DataFrame(columns = ['detected_objects'])
     df['detected_objects'] = detected_objects
     unique_items_detected = df['detected_objects'].unique()
@@ -123,7 +124,7 @@ def unique_items_detected(img, detected_objects):
       return '{} unique objects detected - {}'.format(len(unique_items_detected), (unique_items_detected))
 
 def count_per_unique_item(img = img, detected_objects = detected_objects):
-    """Here we find the number of occurences per unique object in the image"""
+  """Here we find the number of occurences per unique object in the image"""
     if len(detected_objects) == 0:
       return '0 objects detected'
     elif len(detected_objects) == 1:
@@ -150,7 +151,7 @@ def count_per_unique_item(img = img, detected_objects = detected_objects):
       
 
 def detected_objects_shape(img = img, detected_objects = detected_objects, roi = roi):
-    """Here we determine the shape of the detected object"""
+  """Here we determine the shape of the detected object"""
     if len(detected_objects) == 0:
       return '0 objects detected'
     else:
@@ -170,7 +171,7 @@ def detected_objects_shape(img = img, detected_objects = detected_objects, roi =
       #return df
  
 def display_all_objects(img = img, detected_objects = detected_objects, roi = roi):
-    """Here we display all the objects that have been detected"""
+  """Here we display all the objects that have been detected"""
     if len(detected_objects) == 0:
       return '0 objects detected'
     elif len(detected_objects) == 1:
@@ -213,7 +214,7 @@ def display_all_objects(img = img, detected_objects = detected_objects, roi = ro
       return a
 
 def display_specific_image(img = img, detected_objects = detected_objects, roi = roi):
-    """Here we give an option to display a specific object detected in the image"""
+  """Here we give an option to display a specific object detected in the image"""
     if len(detected_objects) == 0:
       return '0 objects detected'
     elif len(detected_objects) == 1:
@@ -285,7 +286,7 @@ def display_specific_image(img = img, detected_objects = detected_objects, roi =
 
     
 def display_all_resized_objects(img = img, detected_objects = detected_objects, resized_roi = resized_roi):
-    """Here we display all the resized objects"""
+  """Here we display all the resized objects"""
     if len(detected_objects) == 0:
       return '0 objects detected'
     elif len(detected_objects) == 1:
@@ -324,7 +325,7 @@ def display_all_resized_objects(img = img, detected_objects = detected_objects, 
 
 
 def group_objects_by_class(img = img, detected_objects = detected_objects, resized_roi = resized_roi):
-    """Here we display objects grouped by their classes"""
+  """Here we display objects grouped by their classes"""
     if len(detected_objects) == 0:
       return '0 objects detected'
     elif len(detected_objects) == 1:
