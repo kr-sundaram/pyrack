@@ -10,10 +10,11 @@ Install this package with the following command:
 pip install --upgrade pyrack
 ```
 In order to detect objects and perform some analysis on them, import the package with the following command:
-```from pyrack import object as obj
+```
+from pyrack import object as obj
 ```
 
-# Functionalities\
+# Functionalities
 The following functions can be implemented with the current version\
 1) ## Reading an image
 
