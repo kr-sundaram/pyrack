@@ -31,6 +31,8 @@ This loads the image that was read in the previous step
 obj.display_original_image(img)
 ```
 
+![](Images/original_image.png)
+
 3) ## Defining the model path
 
 Here, you need to mention the path where the pre-trained weights file are located in your system
