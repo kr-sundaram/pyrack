@@ -106,6 +106,8 @@ This returns a plot of the count of each unique object if the number of detectio
 obj.count_per_unique_item(img, detected_objects)
 ```
 
+![](Images/count_of_each_object.png)
+
 12) ## Shape of each detected object
 
 This returns the 3-dimensional shape of each detected object. You also have an option to save it as a .csv file in your system.
@@ -122,6 +124,8 @@ Here, you get to see an image of all the detected objects. You also have an opti
 obj.display_all_objects(img, detected_objects, roi)
 ```
 
+![](Images/display_all_objects.png)
+
 14) ## Display specific objects
 
 Using this function, you have the option of viewing and saving images of specific objects detected in the image.
@@ -129,6 +133,8 @@ Using this function, you have the option of viewing and saving images of specifi
 ```
 obj.display_specific_image(img, detected_objects, roi)
 ```
+
+![](Images/display_specific_objects.png)
 
 15) ## Display all resized objects
 
@@ -138,6 +144,8 @@ Here, you get to see and save resized images of all objects that were detected.
 obj.display_all_resized_objects(img, detected_objects, resized_roi)
 ```
 
+![](Images/display_resized_objects.png)
+
 16) ## Grouping objects by class
 
 Here, you get to view objects grouped by classes. You also have the option to save it as a .jpg file.
@@ -145,6 +153,8 @@ Here, you get to view objects grouped by classes. You also have the option to sa
 ```
 obj.group_objects_by_class(img, detected_objects, resized_roi)
 ```
+
+![](Images/group_objects_by_class.png)
 
 
 
